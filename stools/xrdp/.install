@@ -1,0 +1,23 @@
+#ref:https://gist.github.com/ParkWardRR/2ab9b5d41bbaceca8471d591755a1898
+
+#Update the system package repositories:
+sudo apt update && sudo apt upgrade
+
+#Install xRDP and necessary dependencies:
+sudo apt install xrdp xorgxrdp -y
+
+#Enable xRDP to start on boot and verify its status:
+sudo systemctl enable xrdp
+sudo systemctl status xrdp
+
+#Configure the firewall to allow RDP connections:
+sudo ufw allow 3389/tcp
+
+#Create the proper .xsession file to fix issues with the Cinnamon desktop:
+echo "cinnamon-session" > ~/.xsession
+
+#Make the .xsession file executable (critical step):
+chmod +x ~/.xsession
+
+#Restart the xRDP service to apply the changes:
+sudo systemctl restart xrdp
