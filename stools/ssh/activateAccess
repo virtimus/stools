@@ -1,0 +1,41 @@
+echo "args:$@"
+if [ "x$1" == "x" ]; then
+    echo "usage: <command> [login@]<hostName[:port]> required hostName, exiting ... \"x$1\" \"$1\" "
+    exit 1
+fi
+if [ -f ~/.ssh/id_rsa ]; then
+    echo "[s-ssh] 1.- generate ssh keypair - ~/.ssh/id_rsa exists - omitting (ssh-keygen) ..."
+else
+    echo "[s-ssh] 1.- generate ssh keypair(ssh-keygen) ..."
+    ssh-keygen
+fi
+login=$USER
+hostName=$1
+if  _slibStrContains $hostName '@'; then
+    echo "hostNamecontains:$hostName"
+    arrIN=(${hostName//@/ })
+    login=${arrIN[0]} #login
+    hostName=${arrIN[1]}
+else
+    echo "!hostNamecontains:$hostName"
+fi
+port=22
+#port extract
+if  _slibStrContains $hostName ':'; then
+    echo "hostNamecontainsPort:$hostName"
+    arrIN=(${hostName//:/ })
+    hostName=${arrIN[0]} #login
+    port=${arrIN[1]}
+else
+   echo "!hostNamecontainsPort:$hostName"
+fi
+
+
+echo "[s-ssh] 2.- copy id to $1 as $login (ssh-copy-id) ..."
+#ssh-copy-id userid@hostname
+echo "ssh-copy-id -p $port $login@$hostName ..."
+#broiken for openssh on win ?
+#ssh-copy-id -p $port $login@$hostName
+ssh -p $port $login@$hostName "echo \"`cat ~/.ssh/id_rsa.pub`\" >> .ssh/authorized_keys"
+
+#sudo usermod -a -G ssh-users marek.bisz

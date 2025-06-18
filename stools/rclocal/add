@@ -1,0 +1,16 @@
+
+echo "args:$@:"
+
+if [ "x" == "x$1" ]; then
+    echo "[rclocal/add] required arg with 'command'"
+    echo "'command' should have some chars escaped = ie '/' -> '\\/'"
+    exit 1
+fi
+
+grep -Fxq "###RCAPPS###" /etc/rc.local
+if [ $? == 0 ];  then
+    sudo sed -i -e "s/###RCAPPS###/$1\n###RCAPPS###/" /etc/rc.local
+else
+    echo "[rclocal/add] not intalled - run rclocal/.install"
+fi
+

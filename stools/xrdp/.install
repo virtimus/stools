@@ -14,7 +14,7 @@ sudo systemctl status xrdp
 sudo ufw allow 3389/tcp
 
 #Create the proper .xsession file to fix issues with the Cinnamon desktop:
-echo "cinnamon-session" > ~/.xsession
+echo "env -u SESSION_MANAGER -u DBUS_SESSION_BUS_ADDRESS cinnamon-session" > ~/.xsession
 
 #Make the .xsession file executable (critical step):
 chmod +x ~/.xsession

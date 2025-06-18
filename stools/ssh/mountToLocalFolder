@@ -1,0 +1,69 @@
+#https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh
+echo "args:$@"
+if [ "x$1" == "x" ]; then
+    echo "usage: <command> [login@]<hostName[:port]> <localFolder> - required hostName, exiting ... \"x$1\" \"$1\" "
+    exit 1
+fi
+if [ "x$2" == "x" ]; then
+    echo "usage: <command> [login@]<hostName[:port]> <localFolder> required localFolder (/mnt/xxx), exiting ... \"x$1\" \"$2\" "
+    exit 1
+fi
+if [ -f ~/.ssh/id_rsa ]; then
+    echo "[s-ssh] 1.- generate ssh keypair - ~/.ssh/id_rsa exists - omitting (ssh-keygen) ..."
+else
+    #echo "[s-ssh] 1.- generate ssh keypair(ssh-keygen) ..."
+    #ssh-keygen
+    echo "~/.ssh/id_rsa not found (use ie /s ssh/activateAccess - exit"
+    exit 1
+fi
+
+if [ -d $2 ]; then
+    echo "[s-ssh] localFolder exists ($2) ..."
+else
+    #echo "[s-ssh] 1.- generate ssh keypair(ssh-keygen) ..."
+    #ssh-keygen
+    echo "[s-ssh] localFolder not found - exit ($2)."
+    exit 1
+fi
+
+if _slibIsPackageInstalled sshfs; then
+    echo "[mountToLocalFolder] sshfs installed"
+else 
+    echo "[mountToLocalFolder] sshfs not installed"
+    exit 1
+fi
+login=$USER
+hostName=$1
+localFolder=$2
+
+if  _slibStrContains $hostName '@'; then
+    echo "hostNamecontains:$hostName"
+    arrIN=(${hostName//@/ })
+    login=${arrIN[0]} #login
+    hostName=${arrIN[1]}
+else
+    echo "!hostNamecontains:$hostName"
+fi
+port=22
+remoteFolder='/'
+#port extract
+if  _slibStrContains $hostName ':'; then
+    echo "hostNamecontainsPortAndOrFolder:$hostName"
+    phost=$hostName
+    arrIN=(${hostName//:/ })
+    hostName=${arrIN[0]} #login
+    remoteFolder=${arrIN[1]}
+    nume=${#arrIN[*]}
+    if (( nume > 2 )); then
+        remoteFolder=${arrIN[2]}
+        port=${arrIN[1]}
+    else
+        echo "!hostNamecontainsPort:$phost"
+    fi
+else
+   echo "!hostNamecontainsPortAndOrFolder:$hostName"
+fi
+
+echo "sudo sshfs -o allow_other,default_permissions -p ${port} ${login}@$hostName:$remoteFolder $localFolder"
+
+sudo sshfs -o allow_other,default_permissions -o IdentityFile=~/.ssh/id_rsa -p ${port} ${login}@$hostName:$remoteFolder $localFolder
