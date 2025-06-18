@@ -7,4 +7,10 @@ if [ ! -e $sPath/bin/st ]; then
     ln -s $sPath/.downloads/$dFolder/stools $sPath/bin/st
 fi
 
+if [ -e /src ]; then # make a convenience link
+    if [ ! -e /src/stools  ]; then
+        ln -s $sPath/.downloads/$dFolder /src/stools
+    fi
+fi
+
 echo "[stools/.install] end."
