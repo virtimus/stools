@@ -2,9 +2,9 @@ _dFolder
 
 echo "[stools/.install] starting ... $dFolder"
 
-if [ ! -e $sPath/src/stools ]; then
-    echo "[stools/.install] $sPath/src/stools ..." 
-    ln -s $sPath/.downloads/$dFolder/stools $sPath/src/stools
+if [ ! -e $sPath/bin/st ]; then
+    echo "[stools/.install] $sPath/bin/st ..." 
+    ln -s $sPath/.downloads/$dFolder/stools $sPath/bin/st
 fi
 
 echo "[stools/.install] end."
