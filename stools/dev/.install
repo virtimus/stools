@@ -1,0 +1,4 @@
+sudo apt install -y firefox git software-properties-common \
+    wget fonts-liberation libnspr4 libnss3 libu2f-udev xdg-utils vim \
+    openjdk-11-jdk iputils-ping maven vim openssh-server bzip2 
+

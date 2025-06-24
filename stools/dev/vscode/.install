@@ -1,0 +1,3 @@
+# vscode
+cd /tmp && wget https://vscode.download.prss.microsoft.com/dbazure/download/stable/18e3a1ec544e6907be1e944a94c496e302073435/code_1.101.1-1750254731_amd64.deb \
+    && apt install -y ./code*.deb

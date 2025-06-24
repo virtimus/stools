@@ -1,0 +1,26 @@
+#ref:/src/soft/.downloads/https_gitlab.com_gp5053706_i3c.soft.p.git/.soft/.install
+echo "[stools/docker/.install] Installing docker ..."
+
+sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg
+
+#  Import Docker GPG Key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/dockerce.gpg
+
+# Add Docker APT Repository on Linux Mint 21
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/dockerce.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/dockerce.list > /dev/null
+
+sudo apt update
+
+# Install Docker on Linux Mint 21
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose \
+    jq
+
+sudo docker version
+
+sudo systemctl status docker
+
+# Manage Docker with Local User
+sudo usermod -aG docker $USER  && newgrp docker 
+
+# Test Docker Installation
+docker run hello-world

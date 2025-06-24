@@ -23,7 +23,7 @@ exit 0
 ' > /tmp/rc.local
 
 sudo cp /tmp/rc.local /etc/rc.local
-
+sudo chmod a+x /etc/rc.local
 else #check if tag present
     grep -Fxq "###RCAPPS###" /etc/rc.local
     if [ $? == 0 ];  then
