@@ -1,0 +1,9 @@
+if [ ! -e /src/evkey ]; then
+  cd /src && git clone https://github.com/virtimus/evkey
+fi
+cd /src/evkey
+gcc -o evkey evkey.c
+if [ "$?" == "0" ]; then 
+  echo "ok"
+fi
+
