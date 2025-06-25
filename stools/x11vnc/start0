@@ -1,0 +1,9 @@
+#_srequire "path to auth file needed" "$1"
+
+#disp=:0
+#if [ -e /tmp/startup.sh.display ]; then
+#    disp=$(cat /tmp/startup.sh.display)
+#fi
+#x11vnc -loop -rfbauth $1 -xkb -repeat -noxrecord -noxfixes -noxdamage -forever -rfbport 5900 -display $disp
+
+x11vnc -loop -nopw -xkb -repeat -noxrecord -noxfixes -noxdamage -forever -rfbport 5900 -display :0 -auth /var/run/lightdm/root/:0 > /var/log/x11vncstartup.log 2>&1 &

@@ -8,12 +8,17 @@ if [ "x$2" == "x" ]; then
     echo "usage: <command> [login@]<hostName[:port]> <localFolder> required localFolder (/mnt/xxx), exiting ... \"x$1\" \"$2\" "
     exit 1
 fi
-if [ -f ~/.ssh/id_rsa ]; then
-    echo "[s-ssh] 1.- generate ssh keypair - ~/.ssh/id_rsa exists - omitting (ssh-keygen) ..."
+idFile=~/.ssh/id_rsa
+if [ "x$3" != "x" ]; then
+    idFile="$3"
+fi
+
+if [ -f $idFile ]; then
+    echo "[s-ssh] 1.- generate ssh keypair - $idFile exists - omitting (ssh-keygen) ..."
 else
     #echo "[s-ssh] 1.- generate ssh keypair(ssh-keygen) ..."
     #ssh-keygen
-    echo "~/.ssh/id_rsa not found (use ie /s ssh/activateAccess - exit"
+    echo "$idFile not found (use ie /s ssh/activateAccess - exit"
     exit 1
 fi
 
@@ -66,4 +71,4 @@ fi
 
 echo "sudo sshfs -o allow_other,default_permissions -p ${port} ${login}@$hostName:$remoteFolder $localFolder"
 
-sudo sshfs -o allow_other,default_permissions -o IdentityFile=~/.ssh/id_rsa -p ${port} ${login}@$hostName:$remoteFolder $localFolder
+sudo sshfs -o allow_other,default_permissions -o IdentityFile=$idFile -p ${port} ${login}@$hostName:$remoteFolder $localFolder

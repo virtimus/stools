@@ -1,0 +1,19 @@
+mkdir -p ~/.config/autostart
+
+if [ ! -e ~/Desktop/startup.sh ]; then
+    touch ~/Desktop/startup.sh
+    chmod a+x ~/Desktop/startup.sh
+fi
+
+if [ ! -e ~/.config/autostart/startup.desktop ]; then
+echo '[Desktop Entry]
+Version=1.0
+Name=Startup script
+Comment=Run startup tools
+Icon=org.remmina.Remmina
+Exec=~/Desktop/startup.sh
+Terminal=true
+Type=Application
+Hidden=false
+' > ~/.config/autostart/startup.desktop
+fi
