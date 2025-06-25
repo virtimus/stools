@@ -24,3 +24,12 @@ sudo usermod -aG docker $USER  && newgrp docker
 
 # Test Docker Installation
 docker run hello-world
+
+# some additional python tools (req for docker-compose)
+sudo apt install python3-pip python3-setuptools
+
+#ref:https://docs.docker.com/engine/install/linux-postinstall/
+# current user to docker group
+sudo groupadd docker
+
+sudo usermod -aG docker $USER

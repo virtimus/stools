@@ -36,6 +36,6 @@ echo "[s-ssh] 2.- copy id to $1 as $login (ssh-copy-id) ..."
 echo "ssh-copy-id -p $port $login@$hostName ..."
 #broiken for openssh on win ?
 #ssh-copy-id -p $port $login@$hostName
-ssh -p $port $login@$hostName "echo \"`cat ~/.ssh/id_rsa.pub`\" >> .ssh/authorized_keys"
+ssh -p $port $login@$hostName "mkdir -p ~/.ssh && echo \"`cat ~/.ssh/id_rsa.pub`\" >> .ssh/authorized_keys"
 
 #sudo usermod -a -G ssh-users marek.bisz
