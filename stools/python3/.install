@@ -1,0 +1,6 @@
+
+sudo apt update && sudo apt install -y python3 pipx
+#sudo python3 -m pip install
+if [ ! -e /usr/bin/python ]; then
+    sudo ln -sf /usr/bin/python3 /usr/bin/python
+fi

@@ -1,0 +1,2 @@
+_srequire "package name required" "$1"
+pip install $1 --break-system-packages

@@ -18,3 +18,14 @@ else
     git pull ./install_release.sh
 
 fi
+#echo "cython<3.0" >> /tmp/c.txt fixed by local folder
+#PIP_CONSTRAINT=/tmp/c.txt pipx install scrcpy-client
+#pipx install numpy - failed
+#required by python scrcpy client
+sudo apt install -y python3-opencv 
+#pip install numpy --break-system-packages #not needed ? 
+pip install adbutils --break-system-packages
+pip install av --break-system-packages
+sudo apt install -y tesseract-ocr libtesseract-dev
+/s st/python3/install pytesseract
+
