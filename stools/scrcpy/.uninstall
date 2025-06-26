@@ -1,0 +1,2 @@
+#To uninstall:
+sudo ninja -Cbuild-auto uninstall

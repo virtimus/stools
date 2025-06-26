@@ -1,0 +1,20 @@
+#ref: https://github.com/Genymobile/scrcpy
+
+#for Debian/Ubuntu
+sudo apt install ffmpeg libsdl2-2.0-0 adb wget \
+                 gcc git pkg-config meson ninja-build libsdl2-dev \
+                 libavcodec-dev libavdevice-dev libavformat-dev libavutil-dev \
+                 libswresample-dev libusb-1.0-0 libusb-1.0-0-dev
+
+if [ ! -e /src/scrcpy ]; then
+
+    #Then clone the repo and execute the installation script (source):
+    cd /src && git clone https://github.com/Genymobile/scrcpy
+    cd scrcpy && ./install_release.sh
+
+else
+
+    #When a new release is out, update the repo and reinstall:
+    git pull ./install_release.sh
+
+fi
